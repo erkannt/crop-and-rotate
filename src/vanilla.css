@@ -369,3 +369,7 @@ footer {
   padding-top: 2rem;
   margin-bottom: 4rem;
 }
+
+#images:empty::after {
+  content: 'Select some images to crop';
+}
