@@ -35,5 +35,6 @@ const preview = document.getElementById('images');
 
 if (images && preview) {
   images.addEventListener('change', updateImagesToDisplay(preview, images));
+  images.value = '';
   console.log('setup successfull');
 }
