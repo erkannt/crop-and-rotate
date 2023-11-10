@@ -17,4 +17,4 @@ watch-typescript: node_modules
 	npx tsc --noEmit --watch
 
 build:
-	npx parcel build src/index.html --no-source-maps --public-url https://babyhash.rknt.de
+	npx parcel build src/index.html --no-source-maps --public-url https://erkannt.github.io/crop-and-rotate/
