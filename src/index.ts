@@ -36,11 +36,21 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
         height: parseInt(cropHeightInput.value),
       },
       dragMode: 'none',
-      scalable: false,
       zoomable: false,
+      responsive: false,
+      minContainerWidth: preview.offsetWidth,
+      minContainerHeight: preview.offsetWidth,
     });
+    const slider = document.createElement('input');
+    slider.type = 'range';
+    slider.min = '0';
+    slider.max = '180';
+    slider.value = '0';
+    slider.addEventListener('input', () => cropper.setData({ rotate: parseInt(slider.value) }));
+
     croppers.push(cropper);
     listItem.appendChild(img);
+    listItem.appendChild(slider);
     list.appendChild(listItem);
   }
 };
