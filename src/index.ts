@@ -1,3 +1,5 @@
+import Cropper from 'cropperjs';
+
 const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) => () => {
   while (preview.firstChild) {
     preview.removeChild(preview.firstChild);
@@ -20,6 +22,7 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
     const listItem = document.createElement('li');
     const img = document.createElement('img');
     img.src = URL.createObjectURL(file);
+    new Cropper(img);
 
     listItem.appendChild(img);
 
