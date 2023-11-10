@@ -22,7 +22,16 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
     const listItem = document.createElement('li');
     const img = document.createElement('img');
     img.src = URL.createObjectURL(file);
-    new Cropper(img);
+    new Cropper(img, {
+      cropBoxResizable: false,
+      data: {
+        width: 128,
+        height: 128,
+      },
+      dragMode: 'none',
+      scalable: false,
+      zoomable: false,
+    });
 
     listItem.appendChild(img);
 
