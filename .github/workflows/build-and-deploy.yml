@@ -10,10 +10,7 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          npm ci
-          npm run typescript
-          npm run format
-          npm run build
+          make format typescript build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.3
