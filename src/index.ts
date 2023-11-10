@@ -1,5 +1,10 @@
 import Cropper from 'cropperjs';
 
+const imagesInput = document.getElementById('images-input') as HTMLInputElement;
+const croppingDiv = document.getElementById('images');
+const cropWidthInput = <HTMLInputElement>document.getElementById('crop-width');
+const cropHeightInput = <HTMLInputElement>document.getElementById('crop-height');
+
 const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) => () => {
   while (preview.firstChild) {
     preview.removeChild(preview.firstChild);
@@ -25,8 +30,8 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
     new Cropper(img, {
       cropBoxResizable: false,
       data: {
-        width: 128,
-        height: 128,
+        width: parseInt(cropWidthInput.value),
+        height: parseInt(cropHeightInput.value),
       },
       dragMode: 'none',
       scalable: false,
@@ -39,11 +44,8 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
   }
 };
 
-const images = document.getElementById('images-input') as HTMLInputElement;
-const preview = document.getElementById('images');
-
-if (images && preview) {
-  images.addEventListener('change', updateImagesToDisplay(preview, images));
-  images.value = '';
+if (imagesInput && croppingDiv) {
+  imagesInput.addEventListener('change', updateImagesToDisplay(croppingDiv, imagesInput));
+  imagesInput.value = '';
   console.log('setup successfull');
 }
