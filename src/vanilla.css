@@ -113,8 +113,17 @@ body {
 }
 body,
 input {
-  font: var(--desktop-font-size) -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font:
+    var(--desktop-font-size) -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol';
 }
 
 h1,
@@ -314,8 +323,17 @@ input:active {
 @media screen and (max-width: 75ch) {
   body,
   input {
-    font: var(--mobile-font-size) -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    font:
+      var(--mobile-font-size) -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol';
   }
   table {
     table-layout: auto;
@@ -342,20 +360,12 @@ input:active {
   }
 }
 
-.input-wrapper {
-  display: flex;
+main {
+  margin-bottom: 5rem;
 }
 
-.input-wrapper #input {
-  width: 100%;
-  margin-right: 3px;
-}
-
-.result {
-  font-size: large;
-  font-weight: bold;
-}
-
-.result::before {
-  content: '⇒ ';
+footer {
+  border-top: 1px solid silver;
+  padding-top: 2rem;
+  margin-bottom: 4rem;
 }

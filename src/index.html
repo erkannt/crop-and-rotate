@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,13 +13,35 @@
     <link rel="stylesheet" href="vanilla.css" />
   </head>
   <body>
-    <h1>Crop and Rotate</h1>
-    <p>Crop and rotate images to an exact size locally in your browser.</p>
+    <main>
+      <h1>Crop and Rotate</h1>
+      <p>Crop and rotate images to an exact size locally in your browser.</p>
 
+      <h2>Specify size of crop</h2>
 
-    <script type="module" src="index.ts"></script>
+      <fieldset>
+        <label for="width">width in px</label>
+        <input type="number" name="width" id="crop-width" />
+        <label for="width">height in px</label>
+        <input type="number" name="height" id="crop-height" />
+      </fieldset>
 
-    <a href="https://github.com/erkannt/crop-and-rotate">Source code</a>
+      <h2>Select images</h2>
+      <input type="file" name="" id="" accept=".png,.jpg,.jpeg" multiple />
 
+      <script type="module" src="index.ts"></script>
+
+      <h2>Crop images</h2>
+
+      <p>Nothing here yet</p>
+
+      <h2>Download cropped versions</h2>
+
+      <button type="button">Download all</button>
+    </main>
+
+    <footer>
+      <a href="https://github.com/erkannt/crop-and-rotate">Source code</a>
+    </footer>
   </body>
 </html>

@@ -11,7 +11,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           npm ci
-          npm run typecheck
+          npm run typescript
           npm run format
           npm run build
 

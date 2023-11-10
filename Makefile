@@ -1,4 +1,4 @@
-.PHONY: dev
+.PHONY: dev format typescript watch-typescript build
 
 node_modules: package.json package-lock.json
 	npm install
