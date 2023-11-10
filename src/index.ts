@@ -70,19 +70,20 @@ const updateCropSize = () => {
 
 const downloadAll = () => {
   const zip = new JSZip();
-  for (const cropper of croppers) {
-    cropper.cropper.getCroppedCanvas().toBlob((blob) => {
+  for (let i = 0; i < croppers.length; i++) {
+    croppers[i].cropper.getCroppedCanvas().toBlob((blob) => {
       if (!blob) {
         return;
       }
-      zip.file(`${cropper.imgName}.png`, blob);
-      zip
-        .generateAsync({
-          type: 'blob',
-        })
-        .then(function (content) {
-          saveAs(content, 'cropped.zip');
-        });
+      zip.file(`${croppers[i].imgName}.png`, blob);
+      if (i === croppers.length - 1)
+        zip
+          .generateAsync({
+            type: 'blob',
+          })
+          .then(function (content) {
+            saveAs(content, 'cropped.zip');
+          });
     });
   }
 };
