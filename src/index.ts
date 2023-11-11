@@ -105,6 +105,24 @@ const downloadContext = () => {
   context.strokeRect(10, 10, parseInt(cropWidthInput.value), parseInt(cropHeightInput.value));
 
   document.body.append(canvas);
+
+  const zip = new JSZip();
+  for (let i = 0; i < imgs.length; i++) {
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        return;
+      }
+      zip.file(`${imgs[i].filename}.png`, blob);
+      if (i === imgs.length - 1)
+        zip
+          .generateAsync({
+            type: 'blob',
+          })
+          .then(function (content) {
+            saveAs(content, 'context.zip');
+          });
+    });
+  }
 };
 
 if (imagesInput && croppingDiv && downloadCroppedButton && downloadContextButton) {
