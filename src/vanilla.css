@@ -25,7 +25,6 @@ code,
 del,
 dfn,
 em,
-img,
 ins,
 kbd,
 q,
@@ -135,7 +134,6 @@ h6,
 p,
 blockquote,
 dl,
-img,
 figure {
   margin: 2rem 0;
 }
@@ -248,7 +246,6 @@ hr {
 
 img {
   display: block;
-  height: auto;
   max-width: 100%;
 }
 
@@ -258,7 +255,7 @@ figure {
   padding: 1rem;
   width: 100%;
 }
-figure img {
+figure {
   margin: 0 auto;
 }
 figure figcaption {
