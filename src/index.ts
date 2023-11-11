@@ -1,14 +1,15 @@
-import { AsyncLocalStorage } from 'async_hooks';
 import Cropper from 'cropperjs';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 
-const imagesInput = document.getElementById('images-input') as HTMLInputElement;
-const croppingDiv = document.getElementById('images');
-const downloadCroppedButton = document.getElementById('download-cropped');
-const downloadContextButton = document.getElementById('download-context');
-const cropWidthInput = <HTMLInputElement>document.getElementById('crop-width');
-const cropHeightInput = <HTMLInputElement>document.getElementById('crop-height');
+const elems = {
+  imagesInput: document.getElementById('images-input') as HTMLInputElement,
+  croppingDiv: document.getElementById('images'),
+  downloadCroppedButton: document.getElementById('download-cropped'),
+  downloadContextButton: document.getElementById('download-context'),
+  cropWidthInput: <HTMLInputElement>document.getElementById('crop-width'),
+  cropHeightInput: <HTMLInputElement>document.getElementById('crop-height'),
+};
 
 let imgs: Array<{ cropper: Cropper; filename: string; imgElement: HTMLImageElement }> = [];
 
@@ -37,8 +38,8 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
     const cropper = new Cropper(img, {
       cropBoxResizable: false,
       data: {
-        width: parseInt(cropWidthInput.value),
-        height: parseInt(cropHeightInput.value),
+        width: parseInt(elems.cropWidthInput.value),
+        height: parseInt(elems.cropHeightInput.value),
       },
       dragMode: 'none',
       zoomable: false,
@@ -63,8 +64,8 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
 const updateCropSize = () => {
   for (const cropper of imgs) {
     cropper.cropper.setData({
-      width: parseInt(cropWidthInput.value),
-      height: parseInt(cropHeightInput.value),
+      width: parseInt(elems.cropWidthInput.value),
+      height: parseInt(elems.cropHeightInput.value),
     });
   }
 };
@@ -146,14 +147,12 @@ const downloadContext = () => {
   }
 };
 
-if (imagesInput && croppingDiv && downloadCroppedButton && downloadContextButton) {
-  cropWidthInput.addEventListener('change', updateCropSize);
-  cropHeightInput.addEventListener('change', updateCropSize);
+if (elems.imagesInput && elems.croppingDiv && elems.downloadCroppedButton && elems.downloadContextButton) {
+  elems.imagesInput.value = '';
 
-  imagesInput.value = '';
-  imagesInput.addEventListener('change', updateImagesToDisplay(croppingDiv, imagesInput));
-
-  downloadCroppedButton.addEventListener('click', downloadCropped);
-  downloadContextButton.addEventListener('click', downloadContext);
-  downloadContextButton.setAttribute('style', 'display: span;');
+  elems.cropWidthInput.addEventListener('change', updateCropSize);
+  elems.cropHeightInput.addEventListener('change', updateCropSize);
+  elems.imagesInput.addEventListener('change', updateImagesToDisplay(elems.croppingDiv, elems.imagesInput));
+  elems.downloadCroppedButton.addEventListener('click', downloadCropped);
+  elems.downloadContextButton.addEventListener('click', downloadContext);
 }
