@@ -11,13 +11,15 @@ const elems = {
   cropHeightInput: <HTMLInputElement>document.getElementById('crop-height'),
 };
 
-let imgs: Array<{ cropper: Cropper; filename: string; imgElement: HTMLImageElement }> = [];
+type State = Array<{ cropper: Cropper; filename: string; imgElement: HTMLImageElement }>;
+
+let state: State = [];
 
 const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) => () => {
   while (preview.firstChild) {
     preview.removeChild(preview.firstChild);
   }
-  imgs = [];
+  state = [];
   const curFiles = images.files;
 
   if (!curFiles) {
@@ -54,7 +56,7 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
     slider.value = '0';
     slider.addEventListener('input', () => cropper.setData({ rotate: parseInt(slider.value) }));
 
-    imgs.push({ cropper, filename: file.name, imgElement: img });
+    state.push({ cropper, filename: file.name, imgElement: img });
     listItem.appendChild(img);
     listItem.appendChild(slider);
     list.appendChild(listItem);
@@ -62,7 +64,7 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
 };
 
 const updateCropSize = () => {
-  for (const cropper of imgs) {
+  for (const cropper of state) {
     cropper.cropper.setData({
       width: parseInt(elems.cropWidthInput.value),
       height: parseInt(elems.cropHeightInput.value),
@@ -72,13 +74,13 @@ const updateCropSize = () => {
 
 const downloadCropped = () => {
   const zip = new JSZip();
-  for (let i = 0; i < imgs.length; i++) {
-    imgs[i].cropper.getCroppedCanvas().toBlob((blob) => {
+  for (let i = 0; i < state.length; i++) {
+    state[i].cropper.getCroppedCanvas().toBlob((blob) => {
       if (!blob) {
         return;
       }
-      zip.file(`${imgs[i].filename}.png`, blob);
-      if (i === imgs.length - 1)
+      zip.file(`${state[i].filename}.png`, blob);
+      if (i === state.length - 1)
         zip
           .generateAsync({
             type: 'blob',
@@ -91,13 +93,13 @@ const downloadCropped = () => {
 };
 
 const downloadContext = () => {
-  const img = imgs[0].imgElement;
+  const img = state[0].imgElement;
 
   const data = {
-    container: imgs[0].cropper.getContainerData(),
-    canvas: imgs[0].cropper.getCanvasData(),
-    image: imgs[0].cropper.getImageData(),
-    crop: imgs[0].cropper.getCropBoxData(),
+    container: state[0].cropper.getContainerData(),
+    canvas: state[0].cropper.getCanvasData(),
+    image: state[0].cropper.getImageData(),
+    crop: state[0].cropper.getCropBoxData(),
   };
 
   const canvas = document.createElement('canvas');
@@ -129,13 +131,13 @@ const downloadContext = () => {
   context.strokeRect(data.crop.left, data.crop.top, data.crop.width, data.crop.height);
 
   const zip = new JSZip();
-  for (let i = 0; i < imgs.length; i++) {
+  for (let i = 0; i < state.length; i++) {
     canvas.toBlob((blob) => {
       if (!blob) {
         return;
       }
-      zip.file(`${imgs[i].filename}.png`, blob);
-      if (i === imgs.length - 1)
+      zip.file(`${state[i].filename}.png`, blob);
+      if (i === state.length - 1)
         zip
           .generateAsync({
             type: 'blob',
