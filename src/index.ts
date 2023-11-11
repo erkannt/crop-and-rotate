@@ -61,7 +61,6 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
 };
 
 const updateCropSize = () => {
-  console.log(cropHeightInput.value);
   for (const cropper of imgs) {
     cropper.cropper.setData({
       width: parseInt(cropWidthInput.value),
@@ -99,7 +98,6 @@ const downloadContext = () => {
     image: imgs[0].cropper.getImageData(),
     crop: imgs[0].cropper.getCropBoxData(),
   };
-  console.log(data);
 
   const canvas = document.createElement('canvas');
   canvas.width = data.container.width;
@@ -154,7 +152,6 @@ if (imagesInput && croppingDiv && downloadCroppedButton && downloadContextButton
 
   imagesInput.value = '';
   imagesInput.addEventListener('change', updateImagesToDisplay(croppingDiv, imagesInput));
-  console.log('setup successfull');
 
   downloadCroppedButton.addEventListener('click', downloadCropped);
   downloadContextButton.addEventListener('click', downloadContext);
