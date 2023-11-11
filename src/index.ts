@@ -38,16 +38,18 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
     const img = document.createElement('img');
     img.src = URL.createObjectURL(file);
     const cropper = new Cropper(img, {
+      center: false,
       cropBoxResizable: false,
       data: {
         width: parseInt(elems.cropWidthInput.value),
         height: parseInt(elems.cropHeightInput.value),
       },
       dragMode: 'none',
-      zoomable: false,
-      responsive: false,
+      guides: false,
       minContainerWidth: preview.offsetWidth,
       minContainerHeight: preview.offsetWidth,
+      responsive: false,
+      zoomable: false,
     });
     const slider = document.createElement('input');
     slider.type = 'range';

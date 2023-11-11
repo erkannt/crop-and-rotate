@@ -369,3 +369,11 @@ footer {
 #images:empty::after {
   content: 'Select some images to crop';
 }
+
+.cropper-view-box {
+  outline: 1px solid red;
+}
+
+.cropper-modal {
+  opacity: 0;
+}
