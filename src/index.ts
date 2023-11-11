@@ -45,6 +45,7 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
       responsive: false,
       minContainerWidth: preview.offsetWidth,
       minContainerHeight: preview.offsetWidth,
+      viewMode: 1,
     });
     const slider = document.createElement('input');
     slider.type = 'range';
