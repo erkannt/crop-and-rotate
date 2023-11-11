@@ -4,7 +4,8 @@ import JSZip from 'jszip';
 
 const imagesInput = document.getElementById('images-input') as HTMLInputElement;
 const croppingDiv = document.getElementById('images');
-const downloadButton = document.getElementById('download');
+const downloadCroppedButton = document.getElementById('download-cropped');
+const downloadContextButton = document.getElementById('download-context');
 const cropWidthInput = <HTMLInputElement>document.getElementById('crop-width');
 const cropHeightInput = <HTMLInputElement>document.getElementById('crop-height');
 
@@ -68,7 +69,7 @@ const updateCropSize = () => {
   }
 };
 
-const downloadAll = () => {
+const downloadCropped = () => {
   const zip = new JSZip();
   for (let i = 0; i < croppers.length; i++) {
     croppers[i].cropper.getCroppedCanvas().toBlob((blob) => {
@@ -88,7 +89,9 @@ const downloadAll = () => {
   }
 };
 
-if (imagesInput && croppingDiv && downloadButton) {
+const downloadContext = () => {};
+
+if (imagesInput && croppingDiv && downloadCroppedButton && downloadContextButton) {
   cropWidthInput.addEventListener('change', updateCropSize);
   cropHeightInput.addEventListener('change', updateCropSize);
 
@@ -96,5 +99,7 @@ if (imagesInput && croppingDiv && downloadButton) {
   imagesInput.addEventListener('change', updateImagesToDisplay(croppingDiv, imagesInput));
   console.log('setup successfull');
 
-  downloadButton.addEventListener('click', downloadAll);
+  downloadCroppedButton.addEventListener('click', downloadCropped);
+  downloadContextButton.addEventListener('click', downloadContext);
+  downloadContextButton.setAttribute('style', 'display: none;');
 }
