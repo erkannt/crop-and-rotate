@@ -1,4 +1,4 @@
-.PHONY: dev format typescript watch-typescript build
+.PHONY: clean dev format typescript watch-typescript build
 
 dev: node_modules
 	npx parcel -p 8080 src/index.html
@@ -18,3 +18,8 @@ watch-typescript: node_modules
 
 build:
 	npx parcel build src/index.html --no-source-maps --public-url https://erkannt.github.io/crop-and-rotate/
+
+clean:
+	rm -rf node_modules
+	rm -rf .parcel-cache
+	rm -rf dist
