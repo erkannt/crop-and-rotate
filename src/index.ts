@@ -93,45 +93,44 @@ const downloadCropped = () => {
 };
 
 const downloadContext = () => {
-  const img = state[0].imgElement;
-
-  const data = {
-    container: state[0].cropper.getContainerData(),
-    canvas: state[0].cropper.getCanvasData(),
-    image: state[0].cropper.getImageData(),
-    crop: state[0].cropper.getCropBoxData(),
-  };
-
-  const canvas = document.createElement('canvas');
-  canvas.width = data.container.width;
-  canvas.height = data.container.height;
-  const context = canvas.getContext('2d');
-  if (!context) {
-    return;
-  }
-  const centerDeltaX = data.container.width / 2;
-  const centerDeltaY = data.container.height / 2;
-  context.translate(centerDeltaX, centerDeltaY);
-  context.rotate((data.image.rotate * Math.PI) / 180);
-  context.drawImage(
-    img,
-    0,
-    0,
-    img.naturalWidth,
-    img.naturalHeight,
-    data.image.left + data.canvas.left - centerDeltaX,
-    data.image.top + data.canvas.top - centerDeltaY,
-    data.image.width,
-    data.image.height,
-  );
-  context.rotate(-(data.image.rotate * Math.PI) / 180);
-  context.translate(-centerDeltaX, -centerDeltaY);
-
-  context.strokeStyle = 'rgb(255, 0, 0)';
-  context.strokeRect(data.crop.left, data.crop.top, data.crop.width, data.crop.height);
-
   const zip = new JSZip();
   for (let i = 0; i < state.length; i++) {
+    const img = state[i].imgElement;
+
+    const data = {
+      container: state[i].cropper.getContainerData(),
+      canvas: state[i].cropper.getCanvasData(),
+      image: state[i].cropper.getImageData(),
+      crop: state[i].cropper.getCropBoxData(),
+    };
+
+    const canvas = document.createElement('canvas');
+    canvas.width = data.container.width;
+    canvas.height = data.container.height;
+    const context = canvas.getContext('2d');
+    if (!context) {
+      return;
+    }
+    const centerDeltaX = data.container.width / 2;
+    const centerDeltaY = data.container.height / 2;
+    context.translate(centerDeltaX, centerDeltaY);
+    context.rotate((data.image.rotate * Math.PI) / 180);
+    context.drawImage(
+      img,
+      0,
+      0,
+      img.naturalWidth,
+      img.naturalHeight,
+      data.image.left + data.canvas.left - centerDeltaX,
+      data.image.top + data.canvas.top - centerDeltaY,
+      data.image.width,
+      data.image.height,
+    );
+    context.rotate(-(data.image.rotate * Math.PI) / 180);
+    context.translate(-centerDeltaX, -centerDeltaY);
+
+    context.strokeStyle = 'rgb(255, 0, 0)';
+    context.strokeRect(data.crop.left, data.crop.top, data.crop.width, data.crop.height);
     canvas.toBlob((blob) => {
       if (!blob) {
         return;
