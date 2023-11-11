@@ -97,7 +97,12 @@ const downloadContext = () => {
   canvas.width = img.width;
   canvas.height = img.height;
   const context = canvas.getContext('2d');
-  context?.drawImage(img, 0, 0);
+  if (!context) {
+    return;
+  }
+  context.drawImage(img, 0, 0);
+  context.strokeStyle = 'rgb(255, 0, 0)';
+  context.strokeRect(10, 10, parseInt(cropWidthInput.value), parseInt(cropHeightInput.value));
 
   document.body.append(canvas);
 };
