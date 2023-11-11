@@ -9,13 +9,13 @@ const downloadContextButton = document.getElementById('download-context');
 const cropWidthInput = <HTMLInputElement>document.getElementById('crop-width');
 const cropHeightInput = <HTMLInputElement>document.getElementById('crop-height');
 
-let croppers: Array<{ cropper: Cropper; imgName: string }> = [];
+let imgs: Array<{ cropper: Cropper; filename: string; imgElement: HTMLImageElement }> = [];
 
 const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) => () => {
   while (preview.firstChild) {
     preview.removeChild(preview.firstChild);
   }
-  croppers = [];
+  imgs = [];
   const curFiles = images.files;
 
   if (!curFiles) {
@@ -52,7 +52,7 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
     slider.value = '0';
     slider.addEventListener('input', () => cropper.setData({ rotate: parseInt(slider.value) }));
 
-    croppers.push({ cropper, imgName: file.name });
+    imgs.push({ cropper, filename: file.name, imgElement: img });
     listItem.appendChild(img);
     listItem.appendChild(slider);
     list.appendChild(listItem);
@@ -61,7 +61,7 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
 
 const updateCropSize = () => {
   console.log(cropHeightInput.value);
-  for (const cropper of croppers) {
+  for (const cropper of imgs) {
     cropper.cropper.setData({
       width: parseInt(cropWidthInput.value),
       height: parseInt(cropHeightInput.value),
@@ -71,13 +71,13 @@ const updateCropSize = () => {
 
 const downloadCropped = () => {
   const zip = new JSZip();
-  for (let i = 0; i < croppers.length; i++) {
-    croppers[i].cropper.getCroppedCanvas().toBlob((blob) => {
+  for (let i = 0; i < imgs.length; i++) {
+    imgs[i].cropper.getCroppedCanvas().toBlob((blob) => {
       if (!blob) {
         return;
       }
-      zip.file(`${croppers[i].imgName}.png`, blob);
-      if (i === croppers.length - 1)
+      zip.file(`${imgs[i].filename}.png`, blob);
+      if (i === imgs.length - 1)
         zip
           .generateAsync({
             type: 'blob',
