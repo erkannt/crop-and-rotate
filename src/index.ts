@@ -94,16 +94,34 @@ const downloadCropped = () => {
 const downloadContext = () => {
   const img = imgs[0].imgElement;
 
+  const data = {
+    container: imgs[0].cropper.getContainerData(),
+    canvas: imgs[0].cropper.getCanvasData(),
+    image: imgs[0].cropper.getImageData(),
+    crop: imgs[0].cropper.getCropBoxData(),
+  };
+  console.log(data);
+
   const canvas = document.createElement('canvas');
-  canvas.width = img.width;
-  canvas.height = img.height;
+  canvas.width = data.container.width;
+  canvas.height = data.container.height;
   const context = canvas.getContext('2d');
   if (!context) {
     return;
   }
-  context.drawImage(img, 0, 0);
+  context.drawImage(
+    img,
+    0,
+    0,
+    img.naturalWidth,
+    img.naturalHeight,
+    data.image.left + data.canvas.left,
+    data.image.top + data.canvas.top,
+    data.image.width,
+    data.image.height,
+  );
   context.strokeStyle = 'rgb(255, 0, 0)';
-  context.strokeRect(10, 10, parseInt(cropWidthInput.value), parseInt(cropHeightInput.value));
+  context.strokeRect(data.crop.left, data.crop.top, data.crop.width, data.crop.height);
 
   document.body.append(canvas);
 
