@@ -1,3 +1,4 @@
+import { AsyncLocalStorage } from 'async_hooks';
 import Cropper from 'cropperjs';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
@@ -89,7 +90,17 @@ const downloadCropped = () => {
   }
 };
 
-const downloadContext = () => {};
+const downloadContext = () => {
+  const img = imgs[0].imgElement;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const context = canvas.getContext('2d');
+  context?.drawImage(img, 0, 0);
+
+  document.body.append(canvas);
+};
 
 if (imagesInput && croppingDiv && downloadCroppedButton && downloadContextButton) {
   cropWidthInput.addEventListener('change', updateCropSize);
