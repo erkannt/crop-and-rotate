@@ -108,21 +108,26 @@ const downloadContext = () => {
   if (!context) {
     return;
   }
+  const centerDeltaX = data.container.width / 2;
+  const centerDeltaY = data.container.height / 2;
+  context.translate(centerDeltaX, centerDeltaY);
+  context.rotate((data.image.rotate * Math.PI) / 180);
   context.drawImage(
     img,
     0,
     0,
     img.naturalWidth,
     img.naturalHeight,
-    data.image.left + data.canvas.left,
-    data.image.top + data.canvas.top,
+    data.image.left + data.canvas.left - centerDeltaX,
+    data.image.top + data.canvas.top - centerDeltaY,
     data.image.width,
     data.image.height,
   );
+  context.rotate(-(data.image.rotate * Math.PI) / 180);
+  context.translate(-centerDeltaX, -centerDeltaY);
+
   context.strokeStyle = 'rgb(255, 0, 0)';
   context.strokeRect(data.crop.left, data.crop.top, data.crop.width, data.crop.height);
-
-  document.body.append(canvas);
 
   const zip = new JSZip();
   for (let i = 0; i < imgs.length; i++) {
@@ -153,5 +158,5 @@ if (imagesInput && croppingDiv && downloadCroppedButton && downloadContextButton
 
   downloadCroppedButton.addEventListener('click', downloadCropped);
   downloadContextButton.addEventListener('click', downloadContext);
-  downloadContextButton.setAttribute('style', 'display: none;');
+  downloadContextButton.setAttribute('style', 'display: span;');
 }
