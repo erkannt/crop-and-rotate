@@ -53,7 +53,7 @@ const updateImagesToDisplay = (preview: HTMLElement, images: HTMLInputElement) =
     });
     const slider = document.createElement('input');
     slider.type = 'range';
-    slider.min = '0';
+    slider.min = '-180';
     slider.max = '180';
     slider.value = '0';
     slider.addEventListener('input', () => cropper.setData({ rotate: parseInt(slider.value) }));
