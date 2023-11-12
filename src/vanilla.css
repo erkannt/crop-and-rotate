@@ -267,7 +267,7 @@ figure figcaption {
 ul,
 ol {
   margin: 2rem 0;
-  padding: 0 0 0 4rem;
+  padding: 0;
 }
 
 dl dd {
@@ -376,4 +376,8 @@ footer {
 
 .cropper-modal {
   opacity: 0;
+}
+
+input[type='range'] {
+  width: 100%;
 }
